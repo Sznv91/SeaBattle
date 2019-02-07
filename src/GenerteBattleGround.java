@@ -4,14 +4,22 @@ public class GenerteBattleGround {
     int lenghtOfShip = 3; //todo этот параметр может менятся, а может и нет
     private String alphabet = "A B C D E F G H"; //Задаем алфавит
     private String cellLetter;
-    boolean leftEnable = false;
-    boolean rightEnable = false;
-    boolean upEnable = false;
-    boolean downEnable = false;
+    private String generatedLetter = "";
+    private int generateNumber = 0;
+    private boolean leftEnable = false;
+    private boolean rightEnable = false;
+    private boolean upEnable = false;
+    private boolean downEnable = false;
+
+    private String[] shipBody;
 
     public void generateeBattleGround(int quantity){
         generateFirstCell();
         buildShip();
+
+        for (String SB : shipBody){
+            System.out.println(SB + " GenCellsOfShipBody");
+        }
     }
     private void generateFirstCell(){
         //String alphabet = "A B C D E F G";
@@ -27,6 +35,8 @@ public class GenerteBattleGround {
         int number = rnd.nextInt(massStr.length); //выбор случайного числа
         checkVertical(letter); // проверка буквы, куда массив сможет строится дальше letter
         checkHorisontal(number); // то же самое для буквы number
+        this.generatedLetter = letter;
+        this.generateNumber = number;
         cellLetter = letter+number; // объявляем первую ячейку, от которой будет весить построение
     }
 
@@ -118,28 +128,123 @@ public class GenerteBattleGround {
 
     private void upDownRight(){
         System.out.println("UDR");
+
+        Random rnd = new Random();
+        int rndChoice = rnd.nextInt(3)+1;
+        switch (rndChoice){
+            case 1 : genUp();
+                break; //Up
+            case 2 : genDown();
+                break; //Down
+            case 3 : genRight();
+                break; //Right
+        }
     }
     private void upDownLeft(){
         System.out.println("UDL");
+
+        Random rnd = new Random();
+        int rndChoice = rnd.nextInt(3)+1;
+        switch (rndChoice){
+            case 1 : genUp();
+                break; //Up
+            case 2 : genDown();
+                break; //Down
+            case 3 : genLeft();
+                break; //Left
+        }
     }
     private void leftRightDown(){
         System.out.println("LRD");
+
+        Random rnd = new Random();
+        int rndChoice = rnd.nextInt(3)+1;
+        switch (rndChoice){
+            case 1 : genLeft();
+                break; //Left
+            case 2 : genDown();
+                break; //Down
+            case 3 : genRight();
+                break; //Right
+        }
     }
     private void leftRightUp(){
         System.out.println("LRU");
+
+        Random rnd = new Random();
+        int rndChoice = rnd.nextInt(3)+1;
+        switch (rndChoice){
+            case 1 : genLeft();
+                break; //Left
+            case 2 : genUp();
+                break; //UP
+            case 3 : genRight();
+                break; //Right
+        }
     }
     private void allWay(){
         Random rnd = new Random();
         int choiceWay = rnd.nextInt(4)+1;
         switch (choiceWay){
-            case 1: System.out.println("Choice 1, Left");
-                break;
-            case 2: System.out.println("Choice 2, Right");
-                break;
-            case 3: System.out.println("Choice 3, Up");
-                break;
-            case 4: System.out.println("Choice 4, Down");
-                break;
+            case 1: genUp();
+                break; //UP
+            case 2: genRight();
+                break; //RIGHT
+            case 3: genDown();
+                break; //DOWN
+            case 4: genLeft();
+                break; //LEFT
         }
+    }
+
+    private void genUp(){
+        String [] shipBody = new String[lenghtOfShip];
+        String[] alphabetMass = alphabet.split(" ");
+        int letterPosition = 0;
+        for (int i = 0; i <= alphabetMass.length; i++){
+            if (generatedLetter.equals(alphabetMass[i])){
+                letterPosition = i;
+                break;
+            }
+        }
+        for (int i = 0; i < shipBody.length; i++){
+            shipBody[i] = alphabetMass[letterPosition]+generateNumber;
+            letterPosition ++;
+        }
+        this.shipBody = shipBody;
+    }
+    private void genDown(){
+        String [] shipBody = new String[lenghtOfShip];
+        String[] alphabetMass = alphabet.split(" ");
+        int letterPosition = 0;
+        for (int i = 0; i < alphabetMass.length; i++){
+            if (generatedLetter.equals(alphabetMass[i])){
+                letterPosition = i;
+                break;
+            }
+        }
+        for (int i = 0; i < shipBody.length; i++){
+            shipBody[i] = alphabetMass[letterPosition] + generateNumber;
+            letterPosition --;
+        }
+        this.shipBody = shipBody;
+    }
+    private void genRight(){
+        String [] shipBody = new String[this.lenghtOfShip];
+        int currentCount = generateNumber;
+        for (int i = 0; i < shipBody.length; i++){
+            shipBody[i] = generatedLetter + currentCount;
+            currentCount++;
+        }
+        this.shipBody = shipBody;
+    }
+    private void genLeft(){
+        String [] shipBody = new String[this.lenghtOfShip];
+        int currentCount = generateNumber;
+        for (int i = 0; i < shipBody.length; i++){
+            shipBody[i] = generatedLetter + currentCount;
+            currentCount++;
+        }
+        this.shipBody = shipBody;
     }
 }
