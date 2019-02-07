@@ -1,6 +1,8 @@
+import java.util.ArrayList;
 import java.util.Random;
 
 public class GenerteBattleGround {
+    private ArrayList <String[]> allShips = new ArrayList<>();
     int lenghtOfShip = 3; //todo этот параметр может менятся, а может и нет
     private String alphabet = "A B C D E F G H"; //Задаем алфавит
     private String cellLetter;
@@ -11,14 +13,19 @@ public class GenerteBattleGround {
     private boolean upEnable = false;
     private boolean downEnable = false;
 
-    private String[] shipBody;
+    private String[] shipBody = new String[3];
 
     public void generateeBattleGround(int quantity){
-        generateFirstCell();
-        buildShip();
+        for (int i = 0; i <= quantity; i++){
+            generateFirstCell();
+            buildShip();
+        }
 
-        for (String SB : shipBody){
-            System.out.println(SB + " GenCellsOfShipBody");
+        for (String[] AS : allShips){
+            for (String SB : AS){
+                System.out.println(SB + " GenCellsOfShipBody");
+            }
+            System.out.println("");
         }
     }
     private void generateFirstCell(){
@@ -102,7 +109,7 @@ public class GenerteBattleGround {
             rightAndDown();
         }
         if (leftEnable && !rightEnable && downEnable && !upEnable){
-            rightAndDown();
+            leftAndDown();
         }
         if (!leftEnable && rightEnable && !downEnable && upEnable){
             rightAndUp();
@@ -114,21 +121,39 @@ public class GenerteBattleGround {
     }
 
     private void rightAndDown(){
-        System.out.println("RnD");
+        Random rnd = new Random();
+        int randomChoise = rnd.nextInt(2)+1;
+        if (randomChoise == 1){
+            genRight();
+        }
+        else genDown();
     }
     private void leftAndDown(){
-        System.out.println("LnD");
+        Random rnd = new Random();
+        int randomChoise = rnd.nextInt(2)+1;
+        if (randomChoise == 1){
+            genLeft();
+        }
+        else genDown();
     }
     private void rightAndUp(){
-        System.out.println("RnU");
+        Random rnd = new Random();
+        int randomChoise = rnd.nextInt(2)+1;
+        if (randomChoise == 1){
+            genRight();
+        }
+        else genUp();
     }
     private void leftAndUp(){
-        System.out.println("LnU");
+        Random rnd = new Random();
+        int randomChoise = rnd.nextInt(2)+1;
+        if (randomChoise == 1){
+            genLeft();
+        }
+        else genUp();
     }
 
-    private void upDownRight(){
-        System.out.println("UDR");
-
+    private void upDownRight() {
         Random rnd = new Random();
         int rndChoice = rnd.nextInt(3)+1;
         switch (rndChoice){
@@ -141,8 +166,6 @@ public class GenerteBattleGround {
         }
     }
     private void upDownLeft(){
-        System.out.println("UDL");
-
         Random rnd = new Random();
         int rndChoice = rnd.nextInt(3)+1;
         switch (rndChoice){
@@ -155,8 +178,6 @@ public class GenerteBattleGround {
         }
     }
     private void leftRightDown(){
-        System.out.println("LRD");
-
         Random rnd = new Random();
         int rndChoice = rnd.nextInt(3)+1;
         switch (rndChoice){
@@ -169,8 +190,6 @@ public class GenerteBattleGround {
         }
     }
     private void leftRightUp(){
-        System.out.println("LRU");
-
         Random rnd = new Random();
         int rndChoice = rnd.nextInt(3)+1;
         switch (rndChoice){
@@ -212,6 +231,11 @@ public class GenerteBattleGround {
             letterPosition ++;
         }
         this.shipBody = shipBody;
+
+        boolean crossFire = checkCrossfire(shipBody);
+        if (crossFire == true){
+        genUp();
+        }
     }
     private void genDown(){
         String [] shipBody = new String[lenghtOfShip];
@@ -228,6 +252,11 @@ public class GenerteBattleGround {
             letterPosition --;
         }
         this.shipBody = shipBody;
+
+        boolean crossFire = checkCrossfire(shipBody);
+        if (crossFire == true){
+            genDown(); // todo перенести в пути leftRightDown and etc.
+        }
     }
     private void genRight(){
         String [] shipBody = new String[this.lenghtOfShip];
@@ -237,14 +266,38 @@ public class GenerteBattleGround {
             currentCount++;
         }
         this.shipBody = shipBody;
+
+        boolean crossFire = checkCrossfire(shipBody);
+        if (crossFire == true){
+            genRight();
+        }
     }
     private void genLeft(){
         String [] shipBody = new String[this.lenghtOfShip];
         int currentCount = generateNumber;
         for (int i = 0; i < shipBody.length; i++){
             shipBody[i] = generatedLetter + currentCount;
-            currentCount++;
+            currentCount--;  //Ошибка была тут
         }
         this.shipBody = shipBody;
+
+        boolean crossFire = checkCrossfire(shipBody);
+        if (crossFire == true){
+            genLeft();
+        }
+    }
+
+    private boolean checkCrossfire(String [] shipBody){
+        for (String [] ships : allShips){
+            for (String ship : ships){
+                for (String currentShip: shipBody){
+                    if (currentShip.equals(ship)){
+                        return true;
+                    }
+                }
+            }
+        }
+        allShips.add(shipBody);
+        return false;
     }
 }

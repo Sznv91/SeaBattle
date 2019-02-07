@@ -1,0 +1,26 @@
+Ячейка имеет номер 1
+Ячейка имеет номер 0
+Ячейка имеет номер 0
+Ячейка имеет номер 7
+B5 GenCellsOfShipBody
+B6 GenCellsOfShipBody
+B7 GenCellsOfShipBody
+
+A4 GenCellsOfShipBody
+A5 GenCellsOfShipBody
+A6 GenCellsOfShipBody
+
+A7 GenCellsOfShipBody
+A8 GenCellsOfShipBody
+A9 GenCellsOfShipBody
+
+H4 GenCellsOfShipBody
+H5 GenCellsOfShipBody
+H6 GenCellsOfShipBody
+
+H4
+UpEnable: true; DownEnable true
+LeftEnable: true RightEnable: true
+Проверка на пересечение true
+
+Process finished with exit code 0
