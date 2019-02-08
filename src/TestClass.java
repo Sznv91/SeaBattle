@@ -15,3 +15,5 @@ public class TestClass {
         System.out.println("Проверка на пересечение " + ttt);
     }
 }
+
+//todo Если counter > 50, то сгенерировать другую первую ячейку.
