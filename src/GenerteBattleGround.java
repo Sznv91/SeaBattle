@@ -127,6 +127,11 @@ public class GenerteBattleGround {
             genRight();
         }
         else genDown();
+
+        boolean crossFire = checkCrossfire(shipBody); //проверка на пересечение
+        if (crossFire == true){
+            rightAndDown();
+        }
     }
     private void leftAndDown(){
         Random rnd = new Random();
@@ -135,6 +140,11 @@ public class GenerteBattleGround {
             genLeft();
         }
         else genDown();
+
+        boolean crossFire = checkCrossfire(shipBody);
+        if (crossFire == true){
+            leftAndDown();
+        }
     }
     private void rightAndUp(){
         Random rnd = new Random();
@@ -143,6 +153,11 @@ public class GenerteBattleGround {
             genRight();
         }
         else genUp();
+
+        boolean crossFire = checkCrossfire(shipBody);
+        if (crossFire == true){
+            rightAndUp();
+        }
     }
     private void leftAndUp(){
         Random rnd = new Random();
@@ -151,6 +166,10 @@ public class GenerteBattleGround {
             genLeft();
         }
         else genUp();
+        boolean crossFire = checkCrossfire(shipBody);
+        if (crossFire == true){
+            leftAndUp();
+        }
     }
 
     private void upDownRight() {
@@ -164,6 +183,11 @@ public class GenerteBattleGround {
             case 3 : genRight();
                 break; //Right
         }
+
+        boolean crossFire = checkCrossfire(shipBody);
+        if (crossFire == true){
+            upDownRight();
+        }
     }
     private void upDownLeft(){
         Random rnd = new Random();
@@ -175,6 +199,11 @@ public class GenerteBattleGround {
                 break; //Down
             case 3 : genLeft();
                 break; //Left
+        }
+
+        boolean crossFire = checkCrossfire(shipBody);
+        if (crossFire == true){
+            upDownLeft();
         }
     }
     private void leftRightDown(){
@@ -188,6 +217,11 @@ public class GenerteBattleGround {
             case 3 : genRight();
                 break; //Right
         }
+
+        boolean crossFire = checkCrossfire(shipBody);
+        if (crossFire == true){
+            leftRightDown();  // расписать для каждого способ перезапуска метода. Переделать через Do While
+        }
     }
     private void leftRightUp(){
         Random rnd = new Random();
@@ -199,6 +233,11 @@ public class GenerteBattleGround {
                 break; //UP
             case 3 : genRight();
                 break; //Right
+        }
+
+        boolean crossFire = checkCrossfire(shipBody);
+        if (crossFire == true){
+            leftRightUp();
         }
     }
     private void allWay(){
@@ -213,6 +252,11 @@ public class GenerteBattleGround {
                 break; //DOWN
             case 4: genLeft();
                 break; //LEFT
+        }
+
+        boolean crossFire = checkCrossfire(shipBody);
+        if (crossFire == true){
+            allWay();
         }
     }
 
@@ -231,11 +275,6 @@ public class GenerteBattleGround {
             letterPosition ++;
         }
         this.shipBody = shipBody;
-
-        boolean crossFire = checkCrossfire(shipBody);
-        if (crossFire == true){
-        genUp();
-        }
     }
     private void genDown(){
         String [] shipBody = new String[lenghtOfShip];
@@ -247,16 +286,11 @@ public class GenerteBattleGround {
                 break;
             }
         }
-        for (int i = 0; i < shipBody.length; i++){
+        for (int i = 0; i < shipBody.length; i++){  //менял на +1
             shipBody[i] = alphabetMass[letterPosition] + generateNumber;
             letterPosition --;
         }
         this.shipBody = shipBody;
-
-        boolean crossFire = checkCrossfire(shipBody);
-        if (crossFire == true){
-            genDown(); // todo перенести в пути leftRightDown and etc.
-        }
     }
     private void genRight(){
         String [] shipBody = new String[this.lenghtOfShip];
@@ -267,10 +301,6 @@ public class GenerteBattleGround {
         }
         this.shipBody = shipBody;
 
-        boolean crossFire = checkCrossfire(shipBody);
-        if (crossFire == true){
-            genRight();
-        }
     }
     private void genLeft(){
         String [] shipBody = new String[this.lenghtOfShip];
@@ -280,11 +310,6 @@ public class GenerteBattleGround {
             currentCount--;  //Ошибка была тут
         }
         this.shipBody = shipBody;
-
-        boolean crossFire = checkCrossfire(shipBody);
-        if (crossFire == true){
-            genLeft();
-        }
     }
 
     private boolean checkCrossfire(String [] shipBody){
@@ -298,6 +323,10 @@ public class GenerteBattleGround {
             }
         }
         allShips.add(shipBody);
+        leftEnable =false;
+        rightEnable =false;
+        upEnable =false;
+        downEnable = false;
         return false;
     }
 }
