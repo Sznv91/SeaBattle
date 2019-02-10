@@ -4,8 +4,7 @@ public class TestClass {
     public static void main (String[ ] args){
         GenerteBattleGround gbg = new GenerteBattleGround();
         gbg.generateeBattleGround(3);
-        ArrayList<String[]> bg = new ArrayList<>();
-        bg = gbg.getBattleGround();
+        ArrayList<String[]> bg = gbg.getBattleGround();
 
         for (String[] one : bg){
             for (String two : one){
@@ -13,16 +12,10 @@ public class TestClass {
             }
             System.out.println();
         }
-        /*String[] testedCross = new String[3];
+        Fight fight = new Fight();
+        fight.startFight(bg);
 
-        testedCross[0] = "B6";
-        testedCross[1] = "B5";
-        testedCross[2] = "B4";
-
-        TestForMethods tFm = new TestForMethods();
-        Boolean ttt = tFm.checkCrossfire(testedCross);
-        System.out.println("Проверка на пересечение " + ttt);*/
+        //TestForMethods tst = new TestForMethods();
+        //tst.startTest();
     }
 }
-
-//todo Если counter > 50, то сгенерировать другую первую ячейку.

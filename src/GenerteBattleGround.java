@@ -1,3 +1,4 @@
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -16,6 +17,15 @@ public class GenerteBattleGround {
     private String[] shipBody = new String[3];
 
     public void generateeBattleGround(int quantity){
+        System.out.println("       Welcome to SeaBattle!\nThe First project of Mikhail Sazonov\n");
+        String[] massAlph = alphabet.split(" ");
+        for (int i = massAlph.length -1; i >= 0; i--){  //Отображение матрицы
+            for (int w = 0; w < massAlph.length;w++){
+                System.out.print(massAlph[i]+w+" ");
+            }
+            System.out.println();
+        }
+        System.out.println();
         for (int i = 0; i < quantity; i++){
             generateFirstCell();
             buildShip();

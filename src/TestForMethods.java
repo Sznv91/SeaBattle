@@ -1,7 +1,9 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class TestForMethods {
      static ArrayList <String []> allShips = new ArrayList<>();
+     static ArrayList <List> worksheetList = new ArrayList<>();
     static String [] ship1 = new String[3];
     static String [] ship2 = new String[3];
     static {
@@ -15,10 +17,29 @@ public class TestForMethods {
 
         allShips.add(ship1);
         allShips.add(ship2);
+
+    }
+    public static void startTest () {
+        worksheetList = rebildList(allShips);
+        for (List<String> toPrint : worksheetList){
+            for (String strPrint : toPrint){
+                System.out.println("3332"+strPrint);
+            }
+        }
     }
 
+    private static ArrayList<List> rebildList(ArrayList<String[]> oldList){
+        for (int i = 0; i < oldList.size(); i++){
+            ArrayList <String> listForAdd = new ArrayList<>();
+            for (int q = 0; q < oldList.get(i).length; q++){
+                listForAdd.add(oldList.get(i)[q]);
+            }
+            worksheetList.add(listForAdd);
+        }
+        return worksheetList;
+    }
 
-    public boolean checkCrossfire(String [] shipBody){
+    /*public boolean checkCrossfire(String [] shipBody){
         for (String [] ships : allShips){
             for (String ship : ships){
                 for (String currentShip: shipBody){
@@ -29,5 +50,7 @@ public class TestForMethods {
             }
         }
         return false;
-    }
+    }*/
+
+
 }
