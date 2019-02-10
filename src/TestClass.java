@@ -6,12 +6,12 @@ public class TestClass {
         gbg.generateeBattleGround(3);
         ArrayList<String[]> bg = gbg.getBattleGround();
 
-        for (String[] one : bg){
+        /*for (String[] one : bg){ //For testing
             for (String two : one){
                 System.out.print(two + " ");
             }
             System.out.println();
-        }
+        }*/
         Fight fight = new Fight();
         fight.startFight(bg);
 
