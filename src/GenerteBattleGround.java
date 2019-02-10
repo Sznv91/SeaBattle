@@ -16,17 +16,9 @@ public class GenerteBattleGround {
     private String[] shipBody = new String[3];
 
     public void generateeBattleGround(int quantity){
-        for (int i = 0; i <= quantity; i++){
+        for (int i = 0; i < quantity; i++){
             generateFirstCell();
             buildShip();
-        }
-
-
-        for (String[] AS : allShips){
-            for (String SB : AS){
-                System.out.println(SB + " GenCellsOfShipBody");
-            }
-            System.out.println("");
         }
     }
     private void generateFirstCell(){
@@ -36,7 +28,7 @@ public class GenerteBattleGround {
         int rndForChice = rnd.nextInt(massStr.length); //выбираем случайную букву
         String letter = massStr[rndForChice]; // -||- продолжение
         try {
-            Thread.sleep(251);
+            Thread.sleep(23);
         } catch (InterruptedException e) {  //Для более случайных чисел
             e.printStackTrace();
         }
@@ -48,12 +40,10 @@ public class GenerteBattleGround {
         cellLetter = letter+number; // объявляем первую ячейку, от которой будет весить построение
     }
 
-    //todo Тестовый класс, можно удалать
-    public void getCellLetter(){
-        System.out.println(this.cellLetter);
-        System.out.println("UpEnable: " + upEnable + "; DownEnable " + downEnable);
-        System.out.println("LeftEnable: " + leftEnable + " RightEnable: " + rightEnable);
+    public ArrayList <String[]> getBattleGround(){
+        return allShips;
     }
+
     private void checkVertical(String generatedLetter){ //Проверка можно ли стоить вверх и вниз
         String [] massStr = alphabet.split(" ");
         int lenghtOfMass = massStr.length-1;
@@ -61,7 +51,7 @@ public class GenerteBattleGround {
         for (int i = 0; i < massStr.length; i++){
             if (massStr[i].equals(generatedLetter)){
                 numInMass = i;
-                System.out.println("Ячейка имеет номер " + numInMass);
+                //System.out.println("Ячейка имеет номер " + numInMass);
                 break;
             }
         } //Определяем где в какой порядк. № имеет бука в массиве
@@ -122,21 +112,36 @@ public class GenerteBattleGround {
     }
 
     private void rightAndDown(){
+        int counterGen = 0;
         boolean crossFire = true;
         while (crossFire) {
-            Random rnd = new Random();
-            int randomChoise = rnd.nextInt(2) + 1;
-            if (randomChoise == 1) {
-                genRight();
-            } else {genDown();}
+            counterGen++;
+            if (counterGen <=10) {
+                Random rnd = new Random();
+                int randomChoise = rnd.nextInt(2) + 1;
+                if (randomChoise == 1) {
+                    genRight();
+                } else {
+                    genDown();
+                }
 
-            crossFire = checkCrossfire(shipBody); //проверка на пересечение
+                crossFire = checkCrossfire(shipBody); //проверка на пересечение
+            }
+            else {
+                counterGen = 0;
+                generateFirstCell();
+                buildShip();
+                break;
+            }
         }
         crossFire = true;
     }
     private void leftAndDown(){
+        int counterGen = 0;
         boolean crossFire = true;
         while (crossFire) {
+            counterGen++;
+            if (counterGen <=10){
             Random rnd = new Random();
             int randomChoise = rnd.nextInt(2) + 1;
             if (randomChoise == 1) {
@@ -145,144 +150,226 @@ public class GenerteBattleGround {
 
             crossFire = checkCrossfire(shipBody);
         }
+            else {
+                counterGen = 0;
+                generateFirstCell();
+                buildShip();
+                break;
+            }
+        }
         crossFire = true;
     }
     private void rightAndUp(){
+        int counterGen = 0;
         boolean crossFire = true;
 
         while (crossFire) {
-            Random rnd = new Random();
-            int randomChoise = rnd.nextInt(2) + 1;
-            if (randomChoise == 1) {
-                genRight();
-            } else {genUp();}
+            counterGen++;
+            if (counterGen <= 10) {
+                Random rnd = new Random();
+                int randomChoise = rnd.nextInt(2) + 1;
+                if (randomChoise == 1) {
+                    genRight();
+                } else {
+                    genUp();
+                }
 
-            crossFire = checkCrossfire(shipBody);
+                crossFire = checkCrossfire(shipBody);
+            }
+            else {
+                counterGen = 0;
+                generateFirstCell();
+                buildShip();
+                break;
+            }
         }
         crossFire = true;
     }
     private void leftAndUp(){
+        int counterGen = 0;
         boolean crossFire = true;
         while (crossFire) {
-            Random rnd = new Random();
-            int randomChoise = rnd.nextInt(2) + 1;
-            if (randomChoise == 1) {
-                genLeft();
-            } else {genUp();}
-            crossFire = checkCrossfire(shipBody);
+            counterGen++;
+            if (counterGen <= 10) {
+                Random rnd = new Random();
+                int randomChoise = rnd.nextInt(2) + 1;
+                if (randomChoise == 1) {
+                    genLeft();
+                } else {
+                    genUp();
+                }
+                crossFire = checkCrossfire(shipBody);
+            }
+            else {
+                counterGen = 0;
+                generateFirstCell();
+                buildShip();
+                break;
+            }
         }
+
         crossFire = true;
     }
 
     private void upDownRight() {
+        int counterGen = 0;
         boolean crossFire = true;
         while (crossFire) {
-            Random rnd = new Random();
-            int rndChoice = rnd.nextInt(3) + 1;
-            switch (rndChoice) {
-                case 1:
-                    genUp();
-                    break; //Up
-                case 2:
-                    genDown();
-                    break; //Down
-                case 3:
-                    genRight();
-                    break; //Right
-            }
+            counterGen++;
+            if (counterGen<= 10) {
+                Random rnd = new Random();
+                int rndChoice = rnd.nextInt(3) + 1;
+                switch (rndChoice) {
+                    case 1:
+                        genUp();
+                        break; //Up
+                    case 2:
+                        genDown();
+                        break; //Down
+                    case 3:
+                        genRight();
+                        break; //Right
+                }
 
-            crossFire = checkCrossfire(shipBody);
+                crossFire = checkCrossfire(shipBody);
+            }
+            else {
+                counterGen = 0;
+                generateFirstCell();
+                buildShip();
+                break;
+            }
         }
         crossFire = true;
     }
     private void upDownLeft(){
+        int counterGen = 0;
         boolean crossFire = true;
         while (crossFire) {
-            Random rnd = new Random();
-            int rndChoice = rnd.nextInt(3) + 1;
-            switch (rndChoice) {
-                case 1:
-                    genUp();
-                    break; //Up
-                case 2:
-                    genDown();
-                    break; //Down
-                case 3:
-                    genLeft();
-                    break; //Left
-            }
+            counterGen++;
+            if (counterGen <= 10) {
+                Random rnd = new Random();
+                int rndChoice = rnd.nextInt(3) + 1;
+                switch (rndChoice) {
+                    case 1:
+                        genUp();
+                        break; //Up
+                    case 2:
+                        genDown();
+                        break; //Down
+                    case 3:
+                        genLeft();
+                        break; //Left
+                }
 
-            crossFire = checkCrossfire(shipBody);
+                crossFire = checkCrossfire(shipBody);
+            }
+            else {
+                counterGen = 0;
+                generateFirstCell();
+                buildShip();
+                break;
+            }
         }
         crossFire = true;
     }
     private void leftRightDown(){
+        int counterGen = 0;
         boolean crossFire = true;
         while (crossFire) {
-            Random rnd = new Random();
-            int rndChoice = rnd.nextInt(3) + 1;
-            switch (rndChoice) {
-                case 1:
-                    genLeft();
-                    break; //Left
-                case 2:
-                    genDown();
-                    break; //Down
-                case 3:
-                    genRight();
-                    break; //Right
+            counterGen++;
+            if (counterGen <= 10) {
+                Random rnd = new Random();
+                int rndChoice = rnd.nextInt(3) + 1;
+                switch (rndChoice) {
+                    case 1:
+                        genLeft();
+                        break; //Left
+                    case 2:
+                        genDown();
+                        break; //Down
+                    case 3:
+                        genRight();
+                        break; //Right
+                }
+                crossFire = checkCrossfire(shipBody);
             }
-
-            crossFire = checkCrossfire(shipBody);
+            else {
+                counterGen = 0;
+                generateFirstCell();
+                buildShip();
+                break;
+            }
         }
         /*if (crossFire == true){
             leftRightDown();  // расписать для каждого способ перезапуска метода. Переделать через Do While
         }*/
         crossFire = true;
     }
-    private void leftRightUp(){
+    private void leftRightUp() {
+        int counterGen = 0;
         boolean crossFire = true;
         while (crossFire) {
-            Random rnd = new Random();
-            int rndChoice = rnd.nextInt(3) + 1;
-            switch (rndChoice) {
-                case 1:
-                    genLeft();
-                    break; //Left
-                case 2:
-                    genUp();
-                    break; //UP
-                case 3:
-                    genRight();
-                    break; //Right
-            }
+            counterGen++;
+            if (counterGen <= 10) {
+                Random rnd = new Random();
+                int rndChoice = rnd.nextInt(3) + 1;
+                switch (rndChoice) {
+                    case 1:
+                        genLeft();
+                        break; //Left
+                    case 2:
+                        genUp();
+                        break; //UP
+                    case 3:
+                        genRight();
+                        break; //Right
+                }
 
-            crossFire = checkCrossfire(shipBody);
+                crossFire = checkCrossfire(shipBody);
+            }
+            else {
+                counterGen=0;
+                generateFirstCell();
+                buildShip();
+                break;
+            }
         }
         crossFire = true;
     }
     private void allWay(){
+        int counterGen = 0;
         boolean crossFire = true;
         while (crossFire) {
-            Random rnd = new Random();
-            int choiceWay = rnd.nextInt(4) + 1;
-            switch (choiceWay) {
-                case 1:
-                    genUp();
-                    break; //UP
-                case 2:
-                    genRight();
-                    break; //RIGHT
-                case 3:
-                    genDown();
-                    break; //DOWN
-                case 4:
-                    genLeft();
-                    break; //LEFT
-            }
+            counterGen++;
+            if (counterGen <= 10) {
+                Random rnd = new Random();
+                int choiceWay = rnd.nextInt(4) + 1;
+                switch (choiceWay) {
+                    case 1:
+                        genUp();
+                        break; //UP
+                    case 2:
+                        genRight();
+                        break; //RIGHT
+                    case 3:
+                        genDown();
+                        break; //DOWN
+                    case 4:
+                        genLeft();
+                        break; //LEFT
+                }
 
-            crossFire = checkCrossfire(shipBody);
+                crossFire = checkCrossfire(shipBody);
+            }
+            else {
+                counterGen = 0;
+                generateFirstCell();
+                buildShip();
+                break;
+            }
         }
+
         crossFire = true;
     }
 
@@ -340,11 +427,11 @@ public class GenerteBattleGround {
 
     private boolean checkCrossfire(String [] shipBody){
 
-        System.out.println();
+        //System.out.println();
         for (String pring : shipBody){
-            System.out.print(pring + " ");
+            //System.out.print(pring + " ");
             try {
-                Thread.sleep(800);
+                Thread.sleep(2);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

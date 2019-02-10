@@ -1,10 +1,19 @@
+import java.util.ArrayList;
+
 public class TestClass {
     public static void main (String[ ] args){
         GenerteBattleGround gbg = new GenerteBattleGround();
         gbg.generateeBattleGround(3);
-        gbg.getCellLetter();
+        ArrayList<String[]> bg = new ArrayList<>();
+        bg = gbg.getBattleGround();
 
-        String[] testedCross = new String[3];
+        for (String[] one : bg){
+            for (String two : one){
+                System.out.print(two + " ");
+            }
+            System.out.println();
+        }
+        /*String[] testedCross = new String[3];
 
         testedCross[0] = "B6";
         testedCross[1] = "B5";
@@ -12,7 +21,7 @@ public class TestClass {
 
         TestForMethods tFm = new TestForMethods();
         Boolean ttt = tFm.checkCrossfire(testedCross);
-        System.out.println("Проверка на пересечение " + ttt);
+        System.out.println("Проверка на пересечение " + ttt);*/
     }
 }
 
